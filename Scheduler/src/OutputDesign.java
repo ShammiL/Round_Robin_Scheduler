@@ -154,7 +154,9 @@ public class OutputDesign extends javax.swing.JFrame {
                 else{
                     System.out.println(events.get(current).startTime+events.get(current).id+events.get(current).endTime);
                     printLabel(events.get(current));
+                    if(current!=events.size()-1){
                     timer.setDelay((events.get(current+1).endTime-events.get(current+1).startTime)*1000);
+                    }                    
                     current++;
                     
                 }
