@@ -234,17 +234,20 @@ public class InputDesign extends javax.swing.JFrame {
 
     private void quantumTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantumTxtActionPerformed
         quantumTime = Integer.parseInt(quantumTxt.getText());
+        Arrivaltxt.requestFocus();
         System.out.println(quantumTime);
     }//GEN-LAST:event_quantumTxtActionPerformed
 
     private void ArrivaltxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArrivaltxtActionPerformed
         int arrivalTime=Integer.parseInt(Arrivaltxt.getText());
+        Bursttxt.requestFocus();
     }//GEN-LAST:event_ArrivaltxtActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         String pid = "P" + Integer.toString(counter++);
         int arrivalTime=Integer.parseInt(Arrivaltxt.getText());
         int burstTime=Integer.parseInt(Bursttxt.getText());
+        Arrivaltxt.requestFocus();
         Object[] data = {pid, arrivalTime, burstTime};
         processDetails.addRow(data);
         ClearText();
@@ -262,6 +265,7 @@ public class InputDesign extends javax.swing.JFrame {
         Scheduler scheduler=new Scheduler(processList,quantumTime);
         finishedList=scheduler.runProcesses();
         OutputDesign outDes=new OutputDesign(scheduler.calcAvgWaiting(finishedList, numOfProcesses),scheduler.calcAvgTurn(finishedList,numOfProcesses),scheduler.getEvents());
+        outDes.setSize(1500,600);
         this.setVisible(false);
         outDes.setVisible(true);
         

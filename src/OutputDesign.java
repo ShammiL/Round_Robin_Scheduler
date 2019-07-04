@@ -1,10 +1,15 @@
 
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
+import java.awt.Graphics;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +25,9 @@ public class OutputDesign extends javax.swing.JFrame {
     float awt, att;
     ArrayList<Event> events;
     Timer timer;
+    private GanttCanvas gCanvas= new GanttCanvas();
+    
+    
     /**
      * Creates new form output
      * @param awt
@@ -29,22 +37,20 @@ public class OutputDesign extends javax.swing.JFrame {
      */
     public OutputDesign(float awt,float att,ArrayList<Event> events){
         initComponents();
+        setLayout(new BorderLayout());
         this.awt=awt;
         this.att=att;
         this.events=events;
-        
-        
+        gCanvas.setEvent(events);
+                
     }
-    
+
     public OutputDesign() {
         initComponents();
-       
+        setLayout(new BorderLayout());
+        
+
     }
-//    public void printTime(){
-//        System.out.println("inside output");
-//        System.out.println(awt);
-//        System.out.println(att);
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +66,7 @@ public class OutputDesign extends javax.swing.JFrame {
         awtLabel = new javax.swing.JLabel();
         attLabel = new javax.swing.JLabel();
         startBtn = new javax.swing.JButton();
+        Timelbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 153));
@@ -99,30 +106,39 @@ public class OutputDesign extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(attL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(awtL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(awtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(attLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(Lrun, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(attL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(awtL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Lrun, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(Timelbl, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(awtLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(attLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Lrun, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Lrun, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(Timelbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(awtL)
                     .addComponent(awtLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,34 +153,35 @@ public class OutputDesign extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     int current=0;
     private void startBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startBtnActionPerformed
-              
+
         timer=new Timer((events.get(current).endTime-events.get(current).startTime)*1000,new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                  System.out.println(timer.getDelay());
                  System.out.println(current==events.size());
-                if(current==events.size()-1){
+                if(current==events.size()){
                     Lrun.setText("Terminated");
                     timer.stop();
                     awtLabel.setText(String.valueOf(awt));
                     attLabel.setText(String.valueOf(att));
+                    add("Center",gCanvas);
                     current=0;
-                    
-                }
+                    }
                 else{
                     System.out.println(events.get(current).startTime+events.get(current).id+events.get(current).endTime);
                     printLabel(events.get(current));
                     if(current!=events.size()-1){
                     timer.setDelay((events.get(current+1).endTime-events.get(current+1).startTime)*1000);
-                    }                    
+                    }
                     current++;
-                    
+
+
                 }
-                
+
             }
         });
-        
-        timer.start();                
+
+        timer.start();
     }//GEN-LAST:event_startBtnActionPerformed
 
     public void printLabel(Event e){
@@ -172,19 +189,19 @@ public class OutputDesign extends javax.swing.JFrame {
            Lrun.setText("Idle");
         }
         else{
-            Lrun.setText(e.id+" running");}
-        
+            Lrun.setText(e.id+" running . . .");}
+
     }
     /**
      * @param args the command line arguments
      */
-    
+
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -206,15 +223,14 @@ public class OutputDesign extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OutputDesign().setVisible(true);
-            }
-        });
+        OutputDesign des = new OutputDesign();
+        des.setSize(1000,600);
+        des.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Lrun;
+    private javax.swing.JLabel Timelbl;
     private javax.swing.JLabel attL;
     private javax.swing.JLabel attLabel;
     private javax.swing.JLabel awtL;
@@ -222,5 +238,44 @@ public class OutputDesign extends javax.swing.JFrame {
     private javax.swing.JButton startBtn;
     // End of variables declaration//GEN-END:variables
 
+
+}
+
+class GanttCanvas extends Canvas{
+    String name;
+    private ArrayList<Event> events;
     
+    public void setEvent(ArrayList<Event> eve){
+        this.events = eve;
+    }
+        
+    @Override
+    public void paint(Graphics g){
+       int x = 25;
+       int y = 150;
+       int multiplier = 20;
+       int width;
+       
+       g.drawString("0", x-2, y+50);
+       for (Event eve : events) {
+           setName(eve);
+           width=multiplier*(eve.endTime-eve.startTime);
+           g.setColor(Color.magenta);
+           g.drawRect(x,y,width,40);
+           g.setColor(Color.BLACK);
+           g.drawString(name, x+width/2-5, 175);
+           g.drawString(Integer.toString(eve.endTime),x+width-2,y+50);
+           x+=width;
+       }
+    } 
+    
+    private void setName(Event event){
+        if(event.id=="Idle"){
+            name="I";
+        }
+        else{
+           name=event.id;
+        }
+    
+    }
 }
